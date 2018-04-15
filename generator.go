@@ -349,10 +349,13 @@ func (g *generator) getContainers() ([]*RuntimeContainer, error) {
 		SetServerInfo(apiInfo)
 	}
 
+	filter := make(map[string][]string)
+	filter["label"] = append(filter["label"], "uk.org.vague.cdn=true")
+	
 	apiContainers, err := g.Client.ListContainers(docker.ListContainersOptions{
 		All:  g.All,
 		Size: false,
-		Filters:= map[string][]string{"label":{"uk.org.vague.cdn":"true"}},
+		Filters: filter,
 	})
 	if err != nil {
 		return nil, err
