@@ -352,6 +352,7 @@ func (g *generator) getContainers() ([]*RuntimeContainer, error) {
 	apiContainers, err := g.Client.ListContainers(docker.ListContainersOptions{
 		All:  g.All,
 		Size: false,
+		Filters: { "label": { "uk.org.vague.cdn": "true" } },
 	})
 	if err != nil {
 		return nil, err
